@@ -1,0 +1,133 @@
+***SQLServler***
+新建数据库:
+
+create database book
+-----------------------------------------------------
+新建一个表:
+
+create table t_user
+(
+	id int identity(1,1) not null PRIMARY key,
+	username varchar(20) not null,
+	password varchar(20) not null,
+	email varchar(20) not null
+)
+-----------------------------------------------------
+SQL的存储过程类似于创建一个函数
+例如:
+
+use book
+go
+create proc insert_user
+	@username varchar(20),
+	@password varchar(20),
+	@email varchar(20)
+as
+begin
+	insert into t_user(username,password,email) values(@username,@password,@email)
+end
+
+其中的go与as之间就像参数列表一样,begin与end之间就是所要执行的语句.
+在go与as之间声明的变量是全局变量.
+在as与begin之间声明的变量就是局部变量,需要使用declare声明与set来赋值.
+-----------------------------------------------------------------------------------------
+调用存储过程:
+
+exec insert_user @username='12138',@password='123456',@email='123456@qq.com'
+
+也可以如下写法(此写法需要注意参数顺序)
+
+exec insert_user '12138','123456','123456@qq.com'
+-----------------------------------------------------------------------------------------
+查询给定条件结果:
+
+use book
+go
+create proc find_user_by_username
+@username varchar(20)
+as
+begin
+	select * from t_user where username=@username
+end
+go
+
+执行:
+
+go
+exec find_user_by_username @username='12138'
+---------------------
+根据ID查询用户名:
+
+use book
+go
+create proc find_username_by_id
+@id int
+as
+declare @username varchar(50)
+begin
+set @username = (select username from t_user where id=@id)
+select @username	--展示@usernmae参数的结果
+end
+
+执行:
+
+go
+exec find_username_by_id 1
+-----------------------------------------------------------------------------------------
+当然,也可以在构建存储过程中直接赋值给参数:
+
+use book
+go
+create proc find_username_12138
+@username varchar(20) = '12138'
+as
+begin
+	select * from t_user where username=@username
+end
+
+执行:
+
+go
+exec find_username_12138
+-----------------------------------------------------------------------------------------
+当存储过程存在返回值时:
+
+use book
+go
+create proc exist_user
+@username varchar(20),
+@result varchar(8) output --输出参数
+as
+begin
+	if (select COUNT(1) from t_user where username=@username)>0
+		set	@result='存在'
+	else
+		set @result='不存在'
+end
+
+执行:
+
+go
+declare @temp_result varchar(8)	--声明接受返回参数的参数
+exec exist_user @username='12138',@result=@temp_result output
+print @temp_result	--输出返回的参数
+---------------------
+根据用户名删除用户,并且返回删除行数(当前受影响行数):
+
+use book
+go
+create proc delete_user_by_username
+@username varchar(20)
+as
+begin
+	delete from t_user where username=@username
+	return @@rowcount	--使用系统变量,返回受影响的行数
+end
+
+执行:
+
+go
+declare @result int
+exec @result=delete_user_by_username '123'
+select @result	--展示结果
+-----------------------------------------------------------------------------------------
