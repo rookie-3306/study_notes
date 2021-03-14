@@ -34,7 +34,22 @@ MyBatis配置文件:
     </mappers>
 </configuration>
 ---------------------------------------------------------------------------------------
-
+在configuration里面也能写上配置参数:
+	-------------------------------------------
+	<properties resource="jdbcConfig.properties"></properties>
+	-------------------------------------------
+	jdbcConfig.properties配置文件(一般放在resources文件下面):
+	-------------------------------------------
+	jdbc.driver=com.mysql.cj.jdbc.Driver
+	jdbc.url=dbc:mysql://localhost:3306/book?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai
+	jdbc.username=root
+	jdbc.password=root
+	-------------------------------------------
+	配置完之后的调用的方法:
+	<property name="driver" value="${jdbc.driver}}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
 
 
 MyBatis映射文件:
@@ -108,4 +123,84 @@ MyBatis的CUDR操作:
 	delete:
 	-------------------------------------------
 	@Delete("DELETE FROM user_information WHERE id=#{id}")
+	-------------------------------------------
+---------------------------------------------------------------------------------------
+
+
+
+MyBatis配置完之后的方法调用:
+---------------------------------------------------------------------------------------
+public class MyBatisTest {
+    InputStream in = null;
+    SqlSessionFactory factory = null;
+    SqlSession session = null;
+    IUserDao userDao = null;
+    public static void main(String[] args) throws IOException {
+	//1.读取配置文件
+        in = Resources.getResourceAsStream("mybatis-config.xml");
+        //2.创建SqlSessionFactory工厂
+        //SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        factory = new SqlSessionFactoryBuilder().build(in);
+        //3.使用工厂生产SqlSession对象
+        session = factory.openSession();
+        //4.使用SqlSession创建Dao接口的代理对象
+        userDao = session.getMapper(IUserDao.class);
+		//之后就能使用userDao里面配置完的方法(像增,删,改之类的方法需要session.commit()下)
+		User user = new User(-1,"ccc123","123");
+        userDao.saveUser(user);
+        session.commit();
+		//清除内存
+		session.close();
+        in.close();
+    }
+}
+---------------------------------------------------------------------------------------
+另外一种实现方法(用的时Session):
+
+	IUserDao接口:
+	-------------------------------------------
+	public interface IUserDao {
+		List<User> findAll();
+	}
+	-------------------------------------------
+	
+	IUserDaoImp类实现IuserDao接口:
+	-------------------------------------------
+	public class IUserDaoImp implements IUserDao {
+		SqlSessionFactory factory = null;
+		public IUserDaoImp(SqlSessionFactory factory){
+			this.factory =factory;
+		}
+		@Override
+		public List<User> findAll() {
+			//根据factory获取sqlSession对象
+			SqlSession sqlSession = factory.openSession();
+			//调用SqlSession中的方法，实现查询列表
+			List<User> users = sqlSession.selectList("com.zgh.dao.IUserDao.findAll");
+			sqlSession.close();
+			return users;
+		}
+	}
+	-------------------------------------------
+	
+	调用方法:
+	public class MyBatisTest {
+		InputStream in = null;
+		SqlSessionFactory factory = null;
+		SqlSession session = null;
+		IUserDao userDao = null;
+		public static void main(String[] args) throws IOException {
+			//1.读取配置文件
+			in = Resources.getResourceAsStream("mybatis-config.xml");
+			//2.创建SqlSessionFactory工厂
+			//SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+			factory = new SqlSessionFactoryBuilder().build(in);
+			//实例化实现类
+			IUserDao userDao = new IUserDaoImp(factory);
+			List<User> users = userDao.findAll();
+			for(User user:users){
+				System.out.println(user);
+			}
+		}
+	}
 	-------------------------------------------
