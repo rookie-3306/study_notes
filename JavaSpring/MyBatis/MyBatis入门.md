@@ -34,7 +34,7 @@ MyBatis配置文件:
     </mappers>
 </configuration>
 ---------------------------------------------------------------------------------------
-在configuration里面也能写上配置参数:
+在configuration里面也能写上配置参数(url属性的使用方法这里不细讲,可以自行去查资料):
 	-------------------------------------------
 	<properties resource="jdbcConfig.properties"></properties>
 	-------------------------------------------
@@ -50,6 +50,8 @@ MyBatis配置文件:
     <property name="url" value="${jdbc.url}"/>
     <property name="username" value="${jdbc.username}"/>
     <property name="password" value="${jdbc.password}"/>
+---------------------------------------------------------------------------------------
+
 
 
 MyBatis映射文件:
