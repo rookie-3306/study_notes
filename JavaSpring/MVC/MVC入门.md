@@ -158,3 +158,4 @@ public class HelloController {
   
 </web-app>
 -------------------------------------------
+![Image text](https://gitee.com/rookie-3306/study_notes/blob/main/JavaSpring/MVC/mvc%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.png)
