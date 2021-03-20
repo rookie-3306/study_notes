@@ -53,3 +53,38 @@ package标签(写在MyBatis配置文件中mappers标签里面):
 	<package name="com.zgh.dao"/>
 	-------------------------------------------
 ---------------------------------------------------------------------------------------
+
+
+
+开启延迟加载(就是在真正用到值的时候再查询，一般多用于一对多):
+
+	设置settings标签(在configuration标签中配置):
+	-------------------------------------------
+	<settings>
+        <!-- 延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 开启时，任一方法的调用都会加载该对象的所有延迟加载属性。 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+	-------------------------------------------
+	
+	设置当查询时使用调用方法来查询(此例子是一对多查询):
+	-------------------------------------------
+	<resultMap id="DelayedLoading" type="com.zgh.entity.Role">
+        <id property="id" column="ID"></id>
+        <result property="name" column="ROLE_NAME"></result>
+        <result property="desc" column="ROLE_DESC"></result>
+        <collection property="users" column="UID" ofType="com.zgh.entity.User" select="com.zgh.dao.IUserDao.findUserById"></collection>
+    </resultMap>
+	-------------------------------------------
+	
+	查询:
+	-------------------------------------------
+	<select id="findRoleAndUserDelayedLoading" resultMap="DelayedLoading">
+    SELECT * FROM role LEFT OUTER JOIN user_role
+    ON role.ID = user_role.RID
+    LEFT OUTER JOIN user_information
+    ON user_information.id = user_role.UID
+    </select>
+	-------------------------------------------
+	
