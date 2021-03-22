@@ -1,0 +1,42 @@
+首先最重要的可以查看官方文档:https://uniapp.dcloud.io/collocation/pages
+	
+	在pages.json中声明tabBar(与pages属性是同一级别)：
+	-------------------------------------------
+	"tabBar":{
+		//当未选中的时候字体显示的颜色
+		// "color":"#007AFF",
+		//选中时候的颜色
+		"selectedColor":"#007AFF",
+		//设置tabBar的背景颜色
+		"backgroundColor":"#C0C0C0",
+		//设置边框颜色
+		"borderStyle":"black",
+		//设置tabBar所在位置(只能再小程序中看见)
+		// "position":"top",
+		//配置tabBar中的lsit个数,最少两个,最多五个.
+		"list":[
+			{
+				//配置提示文本
+				"text":"首页",
+				//选择之后跳转的页面
+				"pagePath":"pages/index/index",
+				//未选中的时候图标
+				"iconPath":"static/tabs/仓储仓库.png",
+				//选中时的图标
+				"selectedIconPath":"static/tabs/仓储仓库_选中.png"
+			},
+			{
+				"text":"订单",
+				"pagePath":"pages/order/order",
+				"iconPath":"static/tabs/订单.png",
+				"selectedIconPath":"static/tabs/订单_选中.png"
+			},
+			{
+				"text":"二维码",
+				"pagePath":"pages/message/message",
+				"iconPath":"static/tabs/二维码.png",
+				"selectedIconPath":"static/tabs/二维码_选中.png"
+			}
+		]
+	}
+	-------------------------------------------

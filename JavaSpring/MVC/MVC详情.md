@@ -193,3 +193,56 @@ MVC的参数获取:
     </body>
 	-------------------------------------------
 --------------------------------------------------------------------------------------
+
+
+
+如果想要获取原生的Servlet API的时候可以直接在方法里面写上HttpServletRequest request, HttpServletResponse response
+	就可以直接获取原生Servlet API:
+		-------------------------------------------
+		@RequestMapping(path = "/testRequest")
+		public String testRequest(HttpServletRequest request, HttpServletResponse response){
+			System.out.println(request);
+			System.out.println(response);
+			return "success";
+		}
+		-------------------------------------------	
+--------------------------------------------------------------------------------------
+
+
+
+请求转发与重定向:
+	只要在返回的字符串前面加上修饰符就可以实现跳转与重定向.
+	-------------------------------------------
+	@RequestMapping(path = "/forwardPage")
+    public String forwardPage(Model model){
+        User user = new User();
+        user.setId(1);
+        user.setName("13549");
+        user.setPassword("12138");
+        model.addAttribute("user",user);
+        return "forward:/WEB-INF/pages/success.jsp";
+    }
+
+    @RequestMapping(path = "/redirectPage")
+    public String redirectPage(){
+        //重定向不能请求WEB-INF文件下的文件,而且一般重定向需要写上完整的url,但是这里当我们写上相对路径的时候spring会帮我们补全
+        return "redirect:/index.jsp";
+    }
+	-------------------------------------------
+	
+	也可以用RequestMapping注解跳转:
+	-------------------------------------------
+	@RequestMapping(path = "/testModelAndView")
+    public ModelAndView testModelAndView(){
+        ModelAndView mv = new ModelAndView();
+        User user = new User();
+        user.setId(1);
+        user.setName("13549");
+        user.setPassword("12138");
+        //ModelAndView也会把对象存入request域中
+        mv.addObject("user",user);
+        //设置跳转的页面
+        mv.setViewName("success");
+        return mv;
+    }
+	-------------------------------------------
