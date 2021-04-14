@@ -10,7 +10,7 @@
 	 <servlet-mapping>
 			<servlet-name>spring</servlet-name>
 			<url-pattern>/</url-pattern>
-	</span> </servlet-mapping>
+	</servlet-mapping>
 	-------------------------------------------
 在spring3.0.4以后版本提供了mvc:resources
 	<mvc:resources> 的使用方法(写在spring配置文件中)：
