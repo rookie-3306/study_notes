@@ -213,6 +213,7 @@ const app = new Vue({
 	}
 })
 ```
+
 ---------------------------------
 ## webpack打包.vue文件:
 - #### 首先安装vue-loader与vue-template-compiler
