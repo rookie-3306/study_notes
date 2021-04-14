@@ -2,19 +2,20 @@
 
 
 ---------------------------------
-### 查看webpack版本
+## 查看webpack版本
 `webpack --version`
 ---------------------------------
 
 
 ---------------------------------
-### 将js打包,无需考虑js文件中各种错综复杂的相互引用,webpack会自己帮我们打包好.
-	_后面第一个参数是需要打包的文件位置,后面的是打包完成之后生成的文件位置._
-	`webpack ./src/main.js ./dist/bundle.js`
-### webpack配置文件:
-	_首先我们需要在需要运行webpakc的文件夹下面创建文件webpack.config.js_
-	_要初始化npm(npm init)_
-	_下面时这个配置文件中的东西:_
+## 将js打包,无需考虑js文件中各种错综复杂的相互引用,webpack会自己帮我们打包好.
+_后面第一个参数是需要打包的文件位置,后面的是打包完成之后生成的文件位置._
+`webpack ./src/main.js ./dist/bundle.js`
+
+## webpack配置文件:
+_首先我们需要在需要运行webpakc的文件夹下面创建文件webpack.config.js_
+_要初始化npm(npm init)_
+_下面时这个配置文件中的东西:_
 ```
 //这个文件是webpack的配置文件,当在此路径下直接输入webpack命令会读取此js文件中的配置属性
 //导入全局的path包
@@ -35,16 +36,14 @@ module.exports = {
 	},
 }
 ```
-### 再main.js中导入js文件.
+>### 然后在main.js中导入js文件.
 `import {xxx} from './js/mathUtil.js'`
 ---------------------------------
 
-
---------------------------------
 ## webpack打包css文件
-	_如果遇到报错:UnhandledPromiseRejectionWarning: TypeError: this.getResolve is not a function 问题._
-	_这是因为style-loader与css-loader版本过高,可以查看网址解决:https://blog.csdn.net/qq_43377853/article/details/108485499_
-### 首先安装style-loader(将模块的导出作为样式添加到 DOM 中)
+_如果遇到报错:UnhandledPromiseRejectionWarning: TypeError: this.getResolve is not a function 问题._
+_这是因为style-loader与css-loader版本过高,可以查看网址解决:https://blog.csdn.net/qq_43377853/article/details/108485499_
+>### 首先安装style-loader(将模块的导出作为样式添加到 DOM 中)
 `npm install style-loader --save-dev`
 ### 继续安装css-loader(让webpack拥有解析css文件的能力,没有安装style-loader就不能将css导入到dom中)
 `npm install --save-dev css-loader`
@@ -52,7 +51,6 @@ module.exports = {
 ```
 const path = require('path')
 module.exports = {
-	
 	entry:'./src/main.js',
 	output:{
 		path:path.resolve(__dirname,'dist'),
@@ -69,16 +67,15 @@ module.exports = {
 	    ]
 	  }
 	}
-	
 }
 ```
 ### 然后再main.js导入css文件
 `import css from './css/normal.css'`
 
 ## webpack打包less文件:
-	_如果遇到问题: Module build failed: TypeError: this.getOptions is not a function_
-	_这是less-loader版本过高，降级到5.0.0即可，调整方法类似上方调整style-loader与css-loader版本_
-### 首先时安装less-loader(打包less文件),与less(解析less文件)
+_如果遇到问题: Module build failed: TypeError: this.getOptions is not a function_
+_这是less-loader版本过高，降级到5.0.0即可，调整方法类似上方调整style-loader与css-loader版本_
+>### 首先安装less-loader(打包less文件),与less(解析less文件)
 `npm install --save-dev less-loader less`
 ### 在webpack.config.js配置webpack.config.js
 ```
@@ -98,16 +95,15 @@ module.exports = {
 ```
 
 ## webpack打包图片文件
-	_如果遇到问题:  The "from" argument must be of type string. Received undefined_
-	_就是url-loader要依赖file-loader，但因file-loader版本过高报错，我将版本降到5。1.0_
-### 安装url-loader与file-loader
+_如果遇到问题:  The "from" argument must be of type string. Received undefined_
+_就是url-loader要依赖file-loader，但因file-loader版本过高报错，我将版本降到5。1.0_
+>### 安装url-loader与file-loader
 `npm install --save-dev url-loader`
 `npm install --save-dev file-loader`
 ### 在webpack.config.js配置webpack.config.js
 ```
 const path = require('path')
 module.exports = {
-	
 	entry:'./src/main.js',
 	output:{
 		path:path.resolve(__dirname,'dist'),
@@ -147,16 +143,15 @@ module.exports = {
 ### 然后引入带有url文件的css文件即可.
 
 ## 用webpack把ES6语法转换为ES5,由于现在所有浏览器都能支持ES6语法所以了解即可。
-	_参考网址:https://www.bilibili.com/video/BV15741177Eh?p=82&spm_id_from=pageDriver_
+>_参考网址:https://www.bilibili.com/video/BV15741177Eh?p=82&spm_id_from=pageDriver_
 
 ## webpack打包vue：
-### 首先安装vue(--save表示安装在本地,这里少了-dev表示不仅仅时开发时依赖,发布时也需要依赖)
+>### 首先安装vue(--save表示安装在本地,这里少了-dev表示不仅仅时开发时依赖,发布时也需要依赖)
 `npm install vue --save`
 ### 在webpack.config.js配置webpack.config.js,防止vue用runing-only的方式编译
 ````
 const path = require('path')
 module.exports = {
-	
 	entry:'./src/main.js',
 	output:{
 		path:path.resolve(__dirname,'dist'),
@@ -216,8 +211,8 @@ const app = new Vue({
 ```
 
 ## webpack打包.vue文件.
-### 首先安装vue-loader与vue-template-compiler
-	_如果遇到问题请把vue-loader版本降到13.0.0_
+>### 首先安装vue-loader与vue-template-compiler
+_如果遇到问题请把vue-loader版本降到13.0.0_
 `npm install --save-dev vue-loader vue-template-compiler`
 ### 在webpack.config.js配置webpack.config.js
 ```
@@ -243,7 +238,6 @@ const app = new Vue({
 		<button @click="btnClick">按钮</button>
 	</div>
 </template>
-
 <script>
 	export default{
 		data(){
@@ -259,7 +253,6 @@ const app = new Vue({
 		}
 	}
 </script>
-
 <style>
 </style>
 ```
