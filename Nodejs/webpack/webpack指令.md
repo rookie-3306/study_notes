@@ -1,11 +1,8 @@
 # webpack的一些常用指令
 
-
 ---------------------------------
 ## 查看webpack版本
 `webpack --version`
----------------------------------
-
 
 ---------------------------------
 ## 将js打包,无需考虑js文件中各种错综复杂的相互引用,webpack会自己帮我们打包好.
@@ -40,7 +37,7 @@ module.exports = {
 ```
 - #### 然后在main.js中导入js文件.
 `import {xxx} from './js/mathUtil.js'`
-
+---------------------------------
 
 ## webpack打包css文件
 _如果遇到报错:UnhandledPromiseRejectionWarning: TypeError: this.getResolve is not a function 问题._
@@ -73,7 +70,7 @@ module.exports = {
 ```
 - #### 然后再main.js导入css文件
 `import css from './css/normal.css'`
-
+---------------------------------
 ## webpack打包less文件:
 _如果遇到问题: Module build failed: TypeError: this.getOptions is not a function_
 _这是less-loader版本过高，降级到5.0.0即可，调整方法类似上方调整style-loader与css-loader版本_
@@ -95,7 +92,7 @@ _这是less-loader版本过高，降级到5.0.0即可，调整方法类似上方
         }]
     }
 ```
-
+---------------------------------
 ## webpack打包图片文件
 _如果遇到问题:  The "from" argument must be of type string. Received undefined_
 _就是url-loader要依赖file-loader，但因file-loader版本过高报错，我将版本降到5。1.0_
@@ -145,10 +142,10 @@ module.exports = {
 ```
 
 - #### 然后引入带有url文件的css文件即可.
-
+---------------------------------
 ## 用webpack把ES6语法转换为ES5,由于现在所有浏览器都能支持ES6语法所以了解即可:
 _参考网址:https://www.bilibili.com/video/BV15741177Eh?p=82&spm_id_from=pageDriver_
-
+---------------------------------
 ## webpack打包vue：
 - #### 首先安装vue(--save表示安装在本地,这里少了-dev表示不仅仅时开发时依赖,发布时也需要依赖)
 `npm install vue --save`
@@ -216,7 +213,7 @@ const app = new Vue({
 	}
 })
 ```
-
+---------------------------------
 ## webpack打包.vue文件:
 - #### 首先安装vue-loader与vue-template-compiler
 _如果遇到问题请把vue-loader版本降到13.0.0_
