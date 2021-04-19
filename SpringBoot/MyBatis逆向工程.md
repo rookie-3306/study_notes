@@ -120,3 +120,6 @@
 		</context>
 	</generatorConfiguration>
 	---------------------------------
+	
+	使用的时候记得在主文件上扫描包:
+	`@MapperScan("com.zgh.uniappserver.mapper")`
