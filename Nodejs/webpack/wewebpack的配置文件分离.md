@@ -8,7 +8,7 @@ _prod.config.js:用来保存发布时的配置信息._
 _dev.config.js:用来保存开发环境时的配置信息._
 - ###### base.config.js文件:
 
-```
+```js
 //这个文件是webpack的配置文件,当在此路径下直接输入webpack命令会读取此js文件中的配置属性
 
 const webpack = require('webpack')
@@ -73,7 +73,7 @@ module.exports = {
 
 - #### prod.config.js文件:
 
-```
+```js
 const uglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 const baseConfig = require('./base.config.js')
@@ -87,7 +87,7 @@ module.exports = webpackMerge(baseConfig,{
 
 - #### dev.config.js文件:
 
-```
+```js
 const webpackMerge = require('webpack-merge')
 const baseConfig = require('./base.config.js')
 module.exports = webpackMerge(baseConfig,{
