@@ -1,20 +1,18 @@
-IOC入门:
-首先创建xml文件bean.xml:
--------------------------------------------
+# IOC入门:
+- #### 首先创建xml文件bean.xml:
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 </beans>
--------------------------------------------
-
-在xml注册bean对象(写在beans标签中):
--------------------------------------------
+```
+- ### 在xml注册bean对象(写在beans标签中):
+```xml
 <bean id="IUserDaoImp" class="com.zgh.imp.IUserDaoImp"></bean>
--------------------------------------------
-
-编写测试类:
--------------------------------------------
+```
+- #### 编写测试类:
+```java
 public class IOCTest {
     @Test
     public void iocTest(){
@@ -30,5 +28,4 @@ public class IOCTest {
         System.out.println(userDao);
     }
 }
--------------------------------------------
----------------------------------------------------------------------------------------
+```
