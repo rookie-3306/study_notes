@@ -1,5 +1,5 @@
-在web.xml文件中可以在创建Servlet容器的时候读取spring的配置文件.
-	-------------------------------------------
+#### 在web.xml文件中可以在创建Servlet容器的时候读取spring的配置文件.
+```xml
 	<!-- 在javaWeb创建ServletContext的时候读取标签内的类,配合listener使用加载spring配置文件 -->
 	  <context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -10,4 +10,4 @@
 	  <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	  </listener>
-	-------------------------------------------
+```

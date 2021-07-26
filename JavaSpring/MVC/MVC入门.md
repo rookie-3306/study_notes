@@ -1,5 +1,5 @@
-在Meven中导入包:
--------------------------------------------
+- #### 在Meven中导入包:
+```xml
 <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -39,14 +39,12 @@
     </dependency>
 
   </dependencies>
+```
 -------------------------------------------
---------------------------------------------------------------------------------------
 
-
-
-在创建WEB-INF文件下新建pages文件来保存网页.
-在pages文件夹下创建success.jsp文件来返回访问成功之后跳转的网页。
--------------------------------------------
+- #### 在创建WEB-INF文件下新建pages文件来保存网页.
+   在pages文件夹下创建success.jsp文件来返回访问成功之后跳转的网页。
+```xml
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -56,13 +54,11 @@
     <h1>成功跳转!</h1>
 </body>
 </html>
+```
 -------------------------------------------
---------------------------------------------------------------------------------------
 
-
-
-创建spring-mvc.xml配置文件:
--------------------------------------------
+- #### 创建spring-mvc.xml配置文件:
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -85,13 +81,11 @@
     <!-- 开启spring-mvc框架注解支持 -->
     <mvc:annotation-driven/>
 </beans>
+```
 -------------------------------------------
---------------------------------------------------------------------------------------
 
-
-
-创建HelloController控制器类:
--------------------------------------------
+- #### 创建HelloController控制器类:
+```java
 //声明此类是个控制器类
 @Controller
 public class HelloController {
@@ -105,13 +99,12 @@ public class HelloController {
     }
 
 }
+```
 -------------------------------------------
---------------------------------------------------------------------------------------
 
 
-
-编写index.jsp页面:
--------------------------------------------
+- #### 编写index.jsp页面:
+```xml
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false"%>
 <html>
@@ -123,13 +116,11 @@ public class HelloController {
         <a href="hello">你好</a>
     </body>
 </html>
+```
 -------------------------------------------
---------------------------------------------------------------------------------------
 
-
-
-在web.xml文件中读取spring_mvc.xml配置文件:
--------------------------------------------
+- #### 在web.xml文件中读取spring_mvc.xml配置文件:
+```xml
 <!DOCTYPE web-app PUBLIC
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
@@ -157,7 +148,5 @@ public class HelloController {
   </servlet-mapping>
   
 </web-app>
+```
 -------------------------------------------
-
-
-![Image text](https://gitee.com/rookie-3306/study_notes/blob/main/JavaSpring/MVC/mvc%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.png)

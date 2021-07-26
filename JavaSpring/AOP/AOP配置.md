@@ -1,27 +1,26 @@
-首先在Maven中导入能解析execution表达式的包:
--------------------------------------------
+- 首先在Maven中导入能解析execution表达式的包:
+```xml
 <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.6</version>
         </dependency>
--------------------------------------------
+```
 
-创建类:
+- 创建类:
 	IAccountService接口类:
--------------------------------------------
+```java
 public interface IAccountService {
     void saveAccount();
     void updateAccount(int id);
     int deleteAccount();
     void errorAccount();
 }
+```
 
--------------------------------------------
-
-	IAccountService实现类实现IAccountService接口:
--------------------------------------------
+- IAccountService实现类实现IAccountService接口:
+```java
 public class IAccountServiceImp implements IAccountService {
     public void saveAccount() {
         System.out.println("执行了保存账户!");
@@ -40,10 +39,10 @@ public class IAccountServiceImp implements IAccountService {
         int x = 1/0;
     }
 }
--------------------------------------------
+```
 	
-	创建日志类,来打印日志:
--------------------------------------------
+- 创建日志类,来打印日志:
+```java
 public class Logger {
     public void printLog(){
         System.out.println("执行了保存日志方法(前置通知)!");
@@ -61,10 +60,10 @@ public class Logger {
         System.out.println("最终通知!");
     }
 }
--------------------------------------------
+```
 
-	配置bean.xml文件(在其中声明AOP文件)
--------------------------------------------
+- 配置bean.xml文件(在其中声明AOP文件)
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
@@ -84,10 +83,10 @@ public class Logger {
         </aop:aspect>
     </aop:config>
 </beans>
--------------------------------------------
+```
 
-	execution表达式的统配写法:
--------------------------------------------
+- execution表达式的统配写法:
+```xml
 <aop:config>
         <!-- id是当前配置的aop的唯一标识符,ref为取得的bean对象的类 -->
         <aop:aspect id="logAdvice" ref="logger">
@@ -101,10 +100,10 @@ public class Logger {
             <aop:before method="printLog" pointcut="(execution(* com.zgh.imp.*.*(..)))"></aop:before>
         </aop:aspect>
     </aop:config>
--------------------------------------------
+```
 
-各种通知:
--------------------------------------------
+- 各种通知:
+```xml
 <aop:config>
         <!-- id是当前配置的aop的唯一标识符,ref为取得的bean对象的类 -->
         <aop:aspect id="logAdvice" ref="logger">
@@ -118,16 +117,16 @@ public class Logger {
             <aop:after-throwing method="afterThrowingPrintLog" pointcut="(execution(* com.zgh.imp.IAccountServiceImp.errorAccount()))"></aop:after-throwing>
         </aop:aspect>
     </aop:config>
--------------------------------------------
+```
 
-由于切入点表达式太过于冗长,可以编写pointcut标签然后进行引用:
--------------------------------------------
-			<!-- 编写切入点表达式 -->
-			<!-- 此标签如果写在aspect标签里面此切入点表达式就只能当前在aspect标签中使用 -->
-			<!-- 此标签如果写在aspect标签外面此切入点表达式就可以在整个aop:config标签内使用(!如果写在外面就需要写在aspect标签前面,约束问题) -->
-            <aop:pointcut id="saveAccount_pt" expression="(execution(* com.zgh.imp.IAccountServiceImp.saveAccount()))"/>
-			<!-- 应用切入点表达式 -->
-			<aop:before method="printLog" pointcut-ref="saveAccount_pt"></aop:before>
--------------------------------------------
+- 由于切入点表达式太过于冗长,可以编写pointcut标签然后进行引用:
+```xml
+    <!-- 编写切入点表达式 -->
+    <!-- 此标签如果写在aspect标签里面此切入点表达式就只能当前在aspect标签中使用 -->
+    <!-- 此标签如果写在aspect标签外面此切入点表达式就可以在整个aop:config标签内使用(!如果写在外面就需要写在aspect标签前面,约束问题) -->
+    <aop:pointcut id="saveAccount_pt" expression="(execution(* com.zgh.imp.IAccountServiceImp.saveAccount()))"/>
+    <!-- 应用切入点表达式 -->
+    <aop:before method="printLog" pointcut-ref="saveAccount_pt"></aop:before>
+```
 
 环绕通知具体看网站:https://www.bilibili.com/video/BV1mE411X7yp?p=139&spm_id_from=pageDriver
