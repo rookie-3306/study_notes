@@ -1,4 +1,5 @@
 # 入门
+## 当下载遇到问题的时候可以看看网址:https://www.cnblogs.com/lgx5/p/10732016.html
 ## Vue CLI的安装:
 `npm install -g @vue/cli`
 ## 拉取旧版本vue模板
